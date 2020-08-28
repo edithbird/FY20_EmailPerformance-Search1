@@ -1,0 +1,51 @@
+---
+title: "Data Tidying FY20 Search 1 Email"
+author: "Office of Marketing and Brand Management"
+date: "8/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(knitr)
+library(tidyverse)
+library(stringr)
+library(kableExtra)
+```
+
+```{r}
+Overall_1 <- read.csv("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Campaign (1).csv", header = T, stringsAsFactors = F)
+Overall_2 <- read.csv("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Campaign (2).csv", header = T, stringsAsFactors = F)
+Overall <- rbind.data.frame(Overall_1, Overall_2)
+Overall <- Overall %>% na.omit()
+Overall[12,2] <- "FA20 Search 1J20 â\200” Email 03"
+#fix name
+
+Overall$Name <-  gsub('â\200”','',Overall$Name)
+```
+
+
+```{r}
+Overall <- Overall%>% 
+  mutate(Date.Time.Sent = as.POSIXct(Date.Time.Sent, format = "%m/%d/%Y %I:%M %p")) %>% 
+  separate(Date.Time.Sent, into = c("Date", "Time"), sep = " ") %>% 
+  separate(Name, into = c("Campaign", "Email"), sep = " (?=[^ ]+$)")%>% 
+  mutate(Campaign = substring(Campaign, 6),
+         Sent = Emails.Sent, 
+         Open.Rate = round(Open.Rate, 2), 
+         Deliverability.Rate = round(Deliverability.Rate,2),
+         Unique.Click.Through.Rate = round(Unique.Click.Through.Rate, 2)) %>% 
+  select(Job.ID, Campaign, Email, Date, Sent, Open.Rate, Deliverability.Rate, Unique.Click.Through.Rate)
+
+kable(Overall %>% select(Campaign, Email, Open.Rate, Unique.Click.Through.Rate)) %>% 
+  kable_styling()
+
+kable(Overall, caption = "Search Performance by Campaign and Email") %>%
+  kable_paper("striped", full_width = F) %>%
+  pack_rows("Senior Search", 1, 7) %>%
+  pack_rows("Junior Search", 8, 14)
+
