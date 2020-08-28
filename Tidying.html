@@ -597,7 +597,465 @@ Overall[12,2] &lt;- &quot;FA20 Search 1J20 â\200” Email 03&quot;
 #fix name
 
 Overall$Name &lt;-  gsub(&#39;â\200”&#39;,&#39;&#39;,Overall$Name)</code></pre>
-<pre class="r"><code>Overall &lt;- Overall%&gt;% 
+<pre class="r"><code>kable(Overall)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Job.ID
+</th>
+<th style="text-align:left;">
+Name
+</th>
+<th style="text-align:left;">
+Date.Time.Sent
+</th>
+<th style="text-align:left;">
+Status
+</th>
+<th style="text-align:right;">
+Emails.Sent
+</th>
+<th style="text-align:right;">
+Open.Rate
+</th>
+<th style="text-align:right;">
+Deliverability.Rate
+</th>
+<th style="text-align:right;">
+Unique.Click.Through.Rate
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+890526
+</td>
+<td style="text-align:left;">
+FA20 Search 1S20 Email 07
+</td>
+<td style="text-align:left;">
+3/11/2020 6:01 PM
+</td>
+<td style="text-align:left;">
+Complete
+</td>
+<td style="text-align:right;">
+5213
+</td>
+<td style="text-align:right;">
+14.94523
+</td>
+<td style="text-align:right;">
+98.06254
+</td>
+<td style="text-align:right;">
+0.9976526
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+877524
+</td>
+<td style="text-align:left;">
+FA20 Search 1S20 Email 06
+</td>
+<td style="text-align:left;">
+3/4/2020 6:01 PM
+</td>
+<td style="text-align:left;">
+Complete
+</td>
+<td style="text-align:right;">
+5251
+</td>
+<td style="text-align:right;">
+15.18152
+</td>
+<td style="text-align:right;">
+98.09560
+</td>
+<td style="text-align:right;">
+1.1454087
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+832593
+</td>
+<td style="text-align:left;">
+FA20 Search 1S20 Email 05
+</td>
+<td style="text-align:left;">
+2/6/2020 6:01 PM
+</td>
+<td style="text-align:left;">
+Complete
+</td>
+<td style="text-align:right;">
+5212
+</td>
+<td style="text-align:right;">
+14.92681
+</td>
+<td style="text-align:right;">
+99.61627
+</td>
+<td style="text-align:right;">
+0.8667180
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:right;">
+810750
+</td>
+<td style="text-align:left;">
+FA20 Search 1S20 Email 04
+</td>
+<td style="text-align:left;">
+1/23/2020 6:01 PM
+</td>
+<td style="text-align:left;">
+Complete
+</td>
+<td style="text-align:right;">
+5247
+</td>
+<td style="text-align:right;">
+15.01817
+</td>
+<td style="text-align:right;">
+99.61883
+</td>
+<td style="text-align:right;">
+2.1809834
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:right;">
+790439
+</td>
+<td style="text-align:left;">
+FA20 Search 1S20 Email 03
+</td>
+<td style="text-align:left;">
+1/9/2020 6:01 PM
+</td>
+<td style="text-align:left;">
+Complete
+</td>
+<td style="text-align:right;">
+5362
+</td>
+<td style="text-align:right;">
+15.90909
+</td>
+<td style="text-align:right;">
+98.47072
+</td>
+<td style="text-align:right;">
+2.2159091
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:right;">
+761149
+</td>
+<td style="text-align:left;">
+FA20 Search 1S20 Email 02
+</td>
+<td style="text-align:left;">
+12/19/2019 6:01 PM
+</td>
+<td style="text-align:left;">
+Complete
+</td>
+<td style="text-align:right;">
+5466
+</td>
+<td style="text-align:right;">
+15.58032
+</td>
+<td style="text-align:right;">
+98.51811
+</td>
+<td style="text-align:right;">
+1.7455896
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:right;">
+742135
+</td>
+<td style="text-align:left;">
+FA20 Search 1S20 Email 01
+</td>
+<td style="text-align:left;">
+12/6/2019 3:42 PM
+</td>
+<td style="text-align:left;">
+Complete
+</td>
+<td style="text-align:right;">
+5516
+</td>
+<td style="text-align:right;">
+12.48391
+</td>
+<td style="text-align:right;">
+98.60406
+</td>
+<td style="text-align:right;">
+2.3166023
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9
+</td>
+<td style="text-align:right;">
+890524
+</td>
+<td style="text-align:left;">
+FA20 Search 1J21 Email 07
+</td>
+<td style="text-align:left;">
+3/11/2020 6:01 PM
+</td>
+<td style="text-align:left;">
+Complete
+</td>
+<td style="text-align:right;">
+16693
+</td>
+<td style="text-align:right;">
+17.18251
+</td>
+<td style="text-align:right;">
+97.54987
+</td>
+<td style="text-align:right;">
+1.5291083
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:right;">
+877523
+</td>
+<td style="text-align:left;">
+FA20 Search 1J21 Email 06
+</td>
+<td style="text-align:left;">
+3/4/2020 6:01 PM
+</td>
+<td style="text-align:left;">
+Complete
+</td>
+<td style="text-align:right;">
+16747
+</td>
+<td style="text-align:right;">
+17.10051
+</td>
+<td style="text-align:right;">
+97.49209
+</td>
+<td style="text-align:right;">
+1.5802046
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:right;">
+832590
+</td>
+<td style="text-align:left;">
+FA20 Search 1J21 Email 05
+</td>
+<td style="text-align:left;">
+2/6/2020 6:01 PM
+</td>
+<td style="text-align:left;">
+Complete
+</td>
+<td style="text-align:right;">
+16371
+</td>
+<td style="text-align:right;">
+16.69930
+</td>
+<td style="text-align:right;">
+99.82286
+</td>
+<td style="text-align:right;">
+1.5298005
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+12
+</td>
+<td style="text-align:right;">
+810751
+</td>
+<td style="text-align:left;">
+FA20 Search 1J21 Email 04
+</td>
+<td style="text-align:left;">
+1/23/2020 6:01 PM
+</td>
+<td style="text-align:left;">
+Complete
+</td>
+<td style="text-align:right;">
+16425
+</td>
+<td style="text-align:right;">
+18.28666
+</td>
+<td style="text-align:right;">
+99.78082
+</td>
+<td style="text-align:right;">
+3.2704863
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:right;">
+790440
+</td>
+<td style="text-align:left;">
+FA20 Search 1J20 Email 03
+</td>
+<td style="text-align:left;">
+1/9/2020 6:01 PM
+</td>
+<td style="text-align:left;">
+Complete
+</td>
+<td style="text-align:right;">
+16838
+</td>
+<td style="text-align:right;">
+20.12025
+</td>
+<td style="text-align:right;">
+97.79071
+</td>
+<td style="text-align:right;">
+2.9150978
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+14
+</td>
+<td style="text-align:right;">
+761147
+</td>
+<td style="text-align:left;">
+FA20 Search 1J21 Email 02
+</td>
+<td style="text-align:left;">
+12/19/2019 6:01 PM
+</td>
+<td style="text-align:left;">
+Complete
+</td>
+<td style="text-align:right;">
+16986
+</td>
+<td style="text-align:right;">
+20.23121
+</td>
+<td style="text-align:right;">
+97.77464
+</td>
+<td style="text-align:right;">
+2.7516859
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+15
+</td>
+<td style="text-align:right;">
+742137
+</td>
+<td style="text-align:left;">
+FA20 Search 1J21 Email 01
+</td>
+<td style="text-align:left;">
+12/6/2019 3:45 PM
+</td>
+<td style="text-align:left;">
+Complete
+</td>
+<td style="text-align:right;">
+17059
+</td>
+<td style="text-align:right;">
+22.99023
+</td>
+<td style="text-align:right;">
+97.78416
+</td>
+<td style="text-align:right;">
+3.3151490
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Overall$Name &lt;- factor(Overall$Name, levels = c(&quot;FA20 Search 1S20 Email 01&quot;, 
+#                                                 &quot;FA20 Search 1S20 Email 02&quot;,
+#                                                 &quot;FA20 Search 1S20 Email 03&quot;,
+#                                                 &quot;FA20 Search 1S20 Email 04&quot;,
+#                                                 &quot;FA20 Search 1S20 Email 05&quot;,
+#                                                 &quot;FA20 Search 1S20 Email 06&quot;,
+#                                                 &quot;FA20 Search 1S20 Email 07&quot;,
+#                                                 &quot;FA20 Search 1J21 Email 01&quot;, 
+#                                                 &quot;FA20 Search 1J21 Email 02&quot;, 
+#                                                 &quot;FA20 Search 1J21 Email 03&quot;,
+#                                                 &quot;FA20 Search 1J21 Email 04&quot;,
+#                                                 &quot;FA20 Search 1J21 Email 05&quot;,
+#                                                 &quot;FA20 Search 1J21 Email 06&quot;,
+#                                                 &quot;FA20 Search 1J21 Email 07&quot;))
+# 
+# Overall$Name &lt;- as.character(Overall$Name)
+
+Overall &lt;- Overall%&gt;% 
   mutate(Date.Time.Sent = as.POSIXct(Date.Time.Sent, format = &quot;%m/%d/%Y %I:%M %p&quot;)) %&gt;% 
   separate(Date.Time.Sent, into = c(&quot;Date&quot;, &quot;Time&quot;), sep = &quot; &quot;) %&gt;% 
   separate(Name, into = c(&quot;Campaign&quot;, &quot;Email&quot;), sep = &quot; (?=[^ ]+$)&quot;)%&gt;% 
@@ -608,7 +1066,38 @@ Overall$Name &lt;-  gsub(&#39;â\200”&#39;,&#39;&#39;,Overall$Name)</code></pr
          Unique.Click.Through.Rate = round(Unique.Click.Through.Rate, 2)) %&gt;% 
   select(Job.ID, Campaign, Email, Date, Sent, Open.Rate, Deliverability.Rate, Unique.Click.Through.Rate)
 
-kable(Overall %&gt;% select(Campaign, Email, Open.Rate, Unique.Click.Through.Rate)) %&gt;% 
+Overall</code></pre>
+<pre><code>##    Job.ID           Campaign Email       Date  Sent Open.Rate
+## 1  890526 Search 1S20  Email    07 2020-03-11  5213     14.95
+## 2  877524 Search 1S20  Email    06 2020-03-04  5251     15.18
+## 3  832593 Search 1S20  Email    05 2020-02-06  5212     14.93
+## 4  810750 Search 1S20  Email    04 2020-01-23  5247     15.02
+## 5  790439 Search 1S20  Email    03 2020-01-09  5362     15.91
+## 6  761149 Search 1S20  Email    02 2019-12-19  5466     15.58
+## 7  742135 Search 1S20  Email    01 2019-12-06  5516     12.48
+## 8  890524 Search 1J21  Email    07 2020-03-11 16693     17.18
+## 9  877523 Search 1J21  Email    06 2020-03-04 16747     17.10
+## 10 832590 Search 1J21  Email    05 2020-02-06 16371     16.70
+## 11 810751 Search 1J21  Email    04 2020-01-23 16425     18.29
+## 12 790440 Search 1J20  Email    03 2020-01-09 16838     20.12
+## 13 761147 Search 1J21  Email    02 2019-12-19 16986     20.23
+## 14 742137 Search 1J21  Email    01 2019-12-06 17059     22.99
+##    Deliverability.Rate Unique.Click.Through.Rate
+## 1                98.06                      1.00
+## 2                98.10                      1.15
+## 3                99.62                      0.87
+## 4                99.62                      2.18
+## 5                98.47                      2.22
+## 6                98.52                      1.75
+## 7                98.60                      2.32
+## 8                97.55                      1.53
+## 9                97.49                      1.58
+## 10               99.82                      1.53
+## 11               99.78                      3.27
+## 12               97.79                      2.92
+## 13               97.77                      2.75
+## 14               97.78                      3.32</code></pre>
+<pre class="r"><code>kable(Overall %&gt;% select(Campaign, Email, Open.Rate, Unique.Click.Through.Rate)) %&gt;% 
   kable_styling()</code></pre>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
@@ -828,7 +1317,7 @@ Search 1J21 Email
 </table>
 <pre class="r"><code>kable(Overall, caption = &quot;Search Performance by Campaign and Email&quot;) %&gt;%
   kable_paper(&quot;striped&quot;, full_width = F) %&gt;%
-  pack_rows(&quot;Senior Search&quot;, 1, 7) %&gt;%
+  pack_rows(&quot;Senior Search&quot;, 1, 8) %&gt;%
   pack_rows(&quot;Junior Search&quot;, 8, 14)</code></pre>
 <table class=" lightable-paper lightable-striped" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -863,7 +1352,7 @@ Unique.Click.Through.Rate
 </tr>
 </thead>
 <tbody>
-<tr grouplength="7">
+<tr grouplength="8">
 <td colspan="8" style="border-bottom: 1px solid;">
 <strong>Senior Search</strong>
 </td>
@@ -1056,7 +1545,7 @@ Search 1S20 Email
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left:  2em;" indentlevel="1">
+<td style="text-align:right; padding-left:  2em;" indentlevel="2">
 890524
 </td>
 <td style="text-align:left;">
