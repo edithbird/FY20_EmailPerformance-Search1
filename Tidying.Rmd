@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(tidyverse)
 library(stringr)
@@ -67,5 +67,370 @@ kable(Overall %>% select(Campaign, Email, Open.Rate, Unique.Click.Through.Rate))
 kable(Overall, caption = "Search Performance by Campaign and Email") %>%
   kable_paper("striped", full_width = F) %>%
   pack_rows("Senior Search", 1, 8) %>%
-  pack_rows("Junior Search", 8, 14)
+  pack_rows("Junior Search", 8, 14)     
+```
+
+
+
+2.
+
+
+Tidy links data
+
+```{r}
+#load excel reader libraries
+library(devtools)
+# install.packages("devtools")
+#devtools::install_github("tidyverse/readxl")
+library(readxl)
+FA20_Search_1S20_Email_07 <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_890526_Overview_08282020.xls", skip = 12
+                                        , col_names = c("Event", "Unique", "Total", "Percentage"))
+# na = 0
+FA20_Search_1S20_Email_07 <- FA20_Search_1S20_Email_07 %>% mutate_at(vars("Unique", "Total", "Percentage"), as.numeric)
+
+
+ FA20_Search_1S20_Email_07 <- FA20_Search_1S20_Email_07 %>% replace(is.na(.), 0)
+# mutate at Unique total percentage to numbric
+```
+
+```{r junior email 4}
+
+`FA20 Search 1J21 — Email 04` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_810751_Link_08282020.xls", skip = 12, col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")) 
+
+`FA20 Search 1J21 — Email 04` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 04`
+```
+
+
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832593_Link_08282020.xls
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832593_Overview_08282020.xls
+
+
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_877523_Link_08282020.xls
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_877524_Link_08282020.xls
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_877524_Overview_08282020.xls
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_890524_Link_08282020.xls
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_890526_Link_08282020.xls
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_890526_Overview_08282020.xls
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_742135_Link_08282020 (1).xls
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_742135_Link_08282020.xls
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_742135_Overview_08282020.xls
+```{r }
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+``````{r junior email 5}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_742137_Link_08282020.xls
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_761147_Link_08282020.xls
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_761149_Link_08282020.xls
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_761149_Overview_08282020.xls
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_790439_Link_08282020.xls
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_790439_Overview_08282020.xls
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_790440_Link_08282020.xls
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_810750_Link_08282020.xls
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+
+C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_810750_Overview_08282020.xls
+
+```{r}
+
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls"
+                                            , 
+                                            skip = 12, 
+                                            col_names = c("Link Name", "Blank", "Unique Clicks", "% of Unique Clicks", "Total Clicks", "% of Total Clicks", "Net CTRs")
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 04` %>% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`
+```
+
+[Github ](https://github.com/edithbird/FY20_EmailPerformance-Search1)
+
+[Wrike FY21 Search](https://www.wrike.com/open.htm?id=555743625)
+
+[Tableau Viz](https://public.tableau.com/shared/94DD43C45?:display_count=y&:origin=viz_share_link)
+
+
+
 
