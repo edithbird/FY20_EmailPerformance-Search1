@@ -1703,6 +1703,575 @@ Search 1J21 Email
 </tr>
 </tbody>
 </table>
+<ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol>
+<p>Tidy links data</p>
+<pre class="r"><code>#load excel reader libraries
+library(devtools)</code></pre>
+<pre><code>## Warning: package &#39;devtools&#39; was built under R version 3.6.3</code></pre>
+<pre><code>## Loading required package: usethis</code></pre>
+<pre><code>## Warning: package &#39;usethis&#39; was built under R version 3.6.3</code></pre>
+<pre class="r"><code># install.packages(&quot;devtools&quot;)
+#devtools::install_github(&quot;tidyverse/readxl&quot;)
+library(readxl)</code></pre>
+<pre><code>## Warning: package &#39;readxl&#39; was built under R version 3.6.3</code></pre>
+<pre class="r"><code>FA20_Search_1S20_Email_07 &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_890526_Overview_08282020.xls&quot;, skip = 12
+                                        , col_names = c(&quot;Event&quot;, &quot;Unique&quot;, &quot;Total&quot;, &quot;Percentage&quot;))
+# na = 0
+FA20_Search_1S20_Email_07 &lt;- FA20_Search_1S20_Email_07 %&gt;% mutate_at(vars(&quot;Unique&quot;, &quot;Total&quot;, &quot;Percentage&quot;), as.numeric)
+
+
+ FA20_Search_1S20_Email_07 &lt;- FA20_Search_1S20_Email_07 %&gt;% replace(is.na(.), 0)
+# mutate at Unique total percentage to numbric</code></pre>
+<pre class="r"><code>`FA20 Search 1J21 — Email 04` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_810751_Link_08282020.xls&quot;, skip = 12, col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)) 
+
+`FA20 Search 1J21 — Email 04` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 04`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832593_Link_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832593_Overview_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_877523_Link_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_877524_Link_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_877524_Overview_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_890524_Link_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_890526_Link_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_890526_Overview_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_742135_Link_08282020 (1).xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_742135_Link_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_742135_Overview_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_742137_Link_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_761147_Link_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_761149_Link_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_761149_Overview_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_790439_Link_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_790439_Overview_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_790440_Link_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_810750_Link_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p>C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_810750_Overview_08282020.xls</p>
+<pre class="r"><code>`FA20 Search 1J21 — Email 05` &lt;- read_excel(&quot;C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls&quot;
+                                            , 
+                                            skip = 12, 
+                                            col_names = c(&quot;Link Name&quot;, &quot;Blank&quot;, &quot;Unique Clicks&quot;, &quot;% of Unique Clicks&quot;, &quot;Total Clicks&quot;, &quot;% of Total Clicks&quot;, &quot;Net CTRs&quot;)
+                                            ) 
+
+`FA20 Search 1J21 — Email 05` &lt;- `FA20 Search 1J21 — Email 04` %&gt;% replace(is.na(.), 0)
+`FA20 Search 1J21 — Email 05`</code></pre>
+<pre><code>## # A tibble: 25 x 7
+##    `Link Name` Blank `Unique Clicks` `% of Unique Cl~ `Total Clicks`
+##    &lt;chr&gt;       &lt;lgl&gt;           &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+##  1 https://us~ FALSE             524           0.212             539
+##  2 http://usm~ FALSE             312           0.126             322
+##  3 https://us~ FALSE             308           0.124             318
+##  4 https://us~ FALSE             305           0.123             305
+##  5 https://us~ FALSE             160           0.0646            160
+##  6 https://us~ FALSE             157           0.0634            167
+##  7 https://us~ FALSE             139           0.0561            142
+##  8 http://twi~ FALSE             136           0.0549            197
+##  9 http://ins~ FALSE             136           0.0549            162
+## 10 http://fac~ FALSE             136           0.0549            140
+## # ... with 15 more rows, and 2 more variables: `% of Total Clicks` &lt;dbl&gt;, `Net
+## #   CTRs` &lt;dbl&gt;</code></pre>
+<p><a href="https://github.com/edithbird/FY20_EmailPerformance-Search1">Github</a></p>
+<p><a href="https://www.wrike.com/open.htm?id=555743625">Wrike FY21 Search</a></p>
+<p><a href="https://public.tableau.com/shared/94DD43C45?:display_count=y&amp;:origin=viz_share_link">Tableau Viz</a></p>
 
 
 

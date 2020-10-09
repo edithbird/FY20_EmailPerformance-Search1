@@ -1,12 +1,18 @@
 ---
-title: "Search1"
+title: "FY20 Search 1 Email Performance"
 author: "Office of Marketing and Brand Management"
 date: "9/8/2020"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
 ```
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
@@ -14,6 +20,9 @@ library(knitr)
 library(tidyverse)
 library(stringr)
 library(kableExtra)
+library(ggplot2)
+library(scales)
+library(readxl)
 ```
 
 ```{r}
@@ -28,8 +37,8 @@ Overall$Name <-  gsub('â\200”','',Overall$Name)
 ```
 
 
-```{r}
-kable(Overall)
+```{r message=FALSE, warning=FALSE, include=FALSE}
+
 # Overall$Name <- factor(Overall$Name, levels = c("FA20 Search 1S20 Email 01", 
 #                                                 "FA20 Search 1S20 Email 02",
 #                                                 "FA20 Search 1S20 Email 03",
@@ -55,26 +64,448 @@ Overall <- Overall%>%
          Sent = Emails.Sent, 
          Open.Rate = round(Open.Rate, 2), 
          Deliverability.Rate = round(Deliverability.Rate,2),
-         Unique.Click.Through.Rate = round(Unique.Click.Through.Rate, 2)) %>% 
-  select(Job.ID, Campaign, Email, Date, Sent, Open.Rate, Deliverability.Rate, Unique.Click.Through.Rate)
+         Unique.Click.Through.Rate = round(Unique.Click.Through.Rate, 2), 
+         Opens = round(Sent*Open.Rate/100, 0), 
+         Delivered = round(Sent*Deliverability.Rate/100, 0), 
+         Unique_Click_Throughs = round(Unique.Click.Through.Rate*Delivered/100, 0), 
+         CTOR = round(Unique_Click_Throughs/Opens*100, 2)
+         
+         ) %>% 
+  select(Job.ID, Campaign, Email, Date, Sent, Open.Rate, Deliverability.Rate, Unique.Click.Through.Rate, CTOR, Opens, Delivered, Unique_Click_Throughs)
 
-Overall
-kable(Overall %>% select(Campaign, Email, Open.Rate, Unique.Click.Through.Rate)) %>% 
-  kable_styling()
-
-
-kable(Overall, caption = "Search Performance by Campaign and Email") %>%
-  kable_paper("striped", full_width = F) %>%
-  pack_rows("Senior Search", 1, 8) %>%
-  pack_rows("Junior Search", 8, 14)     
+# Overall
+# kable(Overall %>% select(Campaign, Email, Open.Rate, Unique.Click.Through.Rate)) %>% 
+#   kable_styling()
 ```
+
+# Basic Description
+
+The performance results for FY20 Search 1 are illustrated in this report. 
+
+Search 1 consisted of 7 emails sent between December 6, 2019 and March 11, 2020, each roughly 2 weeks apart. There were 2 different audiences, Seniors and Juniors, respectively. In this report, I show Senior and Junior performance separately, using 3 KPIs, Open Rate, Click Through Rate, and Click to Open Rate. 
+
+# Findings
+
+## Senior Search
+
+
+__Open Rate__
+
+```{r fig.height=3, fig.width=8}
+
+Overall <- Overall %>% mutate(Date = as.Date(Date, format = "%Y-%m-%d"), Campaign = ifelse(grepl("1S", Campaign), "Senior", "Junior"))%>%
+  mutate(Date = as.Date(Date)) %>%
+  complete(Date = seq.Date(min(Date), max(Date), by="week")) %>% arrange(Date) %>% na.omit() 
+
+Overall %>% filter(Campaign == "Senior") %>%  ggplot(aes(x = Date, y = Open.Rate))+ 
+  geom_line(color = "#0e1033")+ 
+  geom_point(color = "#f5a800")+
+  facet_wrap(~Campaign)+
+  theme_bw()+
+  scale_x_date(date_breaks = "2 week")+
+  ggtitle("Open Rate")+ 
+   theme(text = element_text(size=6),
+      axis.text.x = element_text(angle=60, hjust=1))+ 
+  ylim(c(12, 23))+ 
+  annotate("text", x = as.Date("2019-12-08"), y = 15.8,  size = 2.5, label = "Email 1 Subject  \n'Inclusivity'")+
+  annotate("text", x = as.Date("2019-12-20"), y = 17.75,  size = 2.5, label = "Email 2 Subject  \n'Virtual Tour'")+
+  annotate("text", x = as.Date("2020-01-06"), y = 18.75,  size = 2.5, label = "Email 3 Subject  \n'Excellence & \nAffordability'")+
+  annotate("text", x = as.Date("2020-01-20"), y = 18.5,  size = 2.5, label = "Email 4 Subject  \nQuality Meets \nAffordability")+
+  annotate("text", x = as.Date("2020-02-06"), y = 12.5,  size = 2.5, label = "Email 5 Subject  \n 'Good to be Green'") + 
+  annotate("text", x = as.Date("2020-03-01"), y = 12.25,  size = 2.5, label = "Email 6 Subject  \n 'We Help You \nSee the World'")+ 
+  annotate("text", x = as.Date("2020-03-16"), y = 17,  size = 2.5, label = "Email 7 Subject  \n'Experience the \nDifference'")+
+  ylim(c(0, 24))+ 
+  geom_hline(yintercept = 23.4, linetype="dashed") +
+  theme(strip.background =element_rect(fill="#f5a800"))+
+  theme(strip.text = element_text(colour = '#0e1033', size = 7))
+
+```
+
+\newpage
+ 
+ 
+__Click through Rate__
+
+```{r fig.height=3, fig.width=8}
+
+Overall %>% filter(Campaign == "Senior") %>%  ggplot(aes(x = Date, y = Unique.Click.Through.Rate))+geom_line()+
+  geom_point(color = "#f5a800")+
+  facet_wrap(~Campaign)+theme_bw()+
+  scale_x_date(date_breaks = "2 week")+
+  ggtitle("Click Through Rate")+
+   theme(text = element_text(size=6),
+      axis.text.x = element_text(angle=60, hjust=1))+ 
+  annotate("text",  size = 2, x = as.Date("2019-12-09"), y = 3.7, label = "/apply-now \n/maine.edu") + 
+  annotate("text",  size = 2, x = as.Date("2020-01-23"), y = 3.7, label = "/apply-now \n/maine.edu \n/scholarships")+ 
+  ylim(c(0.8, 4))+ geom_hline(yintercept = 3, linetype="dashed")+
+  theme(strip.background =element_rect(fill="#f5a800"))+
+  theme(strip.text = element_text(colour = '#0e1033', size = 7))
+```
+
+
+__Click to Open Rate__
+
+```{r fig.height=3, fig.width=8}
+
+
+Overall %>% filter(Campaign == "Senior") %>%  ggplot(aes(x = Date, y = CTOR))+
+  geom_line(color = "#0e1033")+
+  geom_point(color = "#f5a800")+
+  facet_wrap(~Campaign)+
+  theme_bw()+
+  scale_x_date(date_breaks = "2 week")+
+  ggtitle("CTOR")+
+   theme(text = element_text(size=6),
+      axis.text.x = element_text(angle=60, hjust=1))+ 
+  annotate("text",  size = 2, x = as.Date("2019-12-06"), y = 18.9, label = "/apply-now \n/maine.edu") + 
+  annotate("text",  size = 2, x = as.Date("2019-12-23"), y = 15, label = "/virtual-tour \n/maine.edu")+ 
+  annotate("text",  size = 2, x = as.Date("2020-01-06"), y = 16, label = "/apply-now \n/maine.edu \n/financial-aid")+ 
+  annotate("text",  size = 2, x = as.Date("2020-01-23"), y = 16.7, label = "/apply-now \n/maine.edu \n/scholarships")+ 
+  ylim(c(0, 19))+ 
+  geom_hline(yintercept = 12.7, linetype="dashed")+
+  theme(strip.background =element_rect(fill="#f5a800"))+
+  theme(strip.text = element_text(colour = '#0e1033', size = 7))
+```
+\newpage
+
+
+## Junior Search
+
+__Open Rate__
+
+```{r fig.height=3, fig.width=8}
+Overall %>% filter(Campaign == "Junior") %>%  ggplot(aes(x = Date, y = Open.Rate))+geom_line(color = "#0e1033")+
+  geom_point(color = "#f5a800")+
+  facet_wrap(~Campaign)+theme_bw()+
+  scale_x_date(date_breaks = "2 week")+
+  ggtitle("Open Rate")+
+  theme(text = element_text(size=6),axis.text.x = element_text(angle=60, hjust=1)) + 
+  ylim(c(12, 23))+ 
+  annotate("text", x = as.Date("2019-12-08"), y = 20,  size = 2.5, label = " Email 1 Subject  \n'Inclusivity'")+ 
+  annotate("text", x = as.Date("2019-12-20"), y = 17.75,  size = 2.5, label = "Email 2 Subject  \n'Virtual Tour'")+
+  annotate("text", x = as.Date("2020-01-09"), y = 18,  size = 2.5, label = " Email 3 Subject  \n'Excellence & Affordability'")+ 
+  annotate("text", x = as.Date("2020-01-31"), y = 19.5,  size = 2.5, label = "                Email 4 Subject 'Quality Meets Affordability'") + 
+  annotate("text", x = as.Date("2020-02-06"), y = 12.5,  size = 2.5, label = "Email 5 Subject  \n 'Good to be Green'") +
+  annotate("text", x = as.Date("2020-03-01"), y = 12.25,  size = 2.5, label = "Email 6 Subject  \n 'We Help You \nSee the World'")+
+  annotate("text", x = as.Date("2020-03-10"), y = 18.5,  size = 2.5, label = "Email 7 Subject  \n 'Experience the \nDifference'")+ 
+  ylim(c(0, 24))+ 
+  geom_hline(yintercept = 23.4, linetype="dashed") +
+  theme(strip.background =element_rect(fill="#f5a800"))+
+  theme(strip.text = element_text(colour = '#0e1033', size = 7))
+```
+
+\newpage
+
+__Click Through Rate__
+
+```{r fig.height=3, fig.width=8}
+Overall %>% filter(Campaign == "Junior") %>%  ggplot(aes(x = Date, y = Unique.Click.Through.Rate))+geom_line(color = "#0e1033")+geom_point(color = "#f5a800")+ facet_wrap(~Campaign)+theme_bw()+
+  scale_x_date(date_breaks = "2 week")+
+  ggtitle("Click Through Rate")+
+   theme(text = element_text(size=6),
+      axis.text.x = element_text(angle=60, hjust=1))+ 
+  annotate("text",  size = 2, x = as.Date("2019-12-09"), y = 3.6, label = "/contact-us \n/maine.edu \n/res-life") + 
+  annotate("text",  size = 2, x = as.Date("2020-01-23"), y = 3.7, label = "/contact-us \n/merit-scholaeships \n/financial-aid")+ 
+  ylim(c(0.8, 4))+ geom_hline(yintercept = 3, linetype="dashed")+
+  theme(strip.background =element_rect(fill="#f5a800"))+
+  theme(strip.text = element_text(colour = '#0e1033', size = 7))
+```
+
+__Click to Open Rate__
+
+```{r fig.height=3, fig.width=8}
+Overall %>% filter(Campaign == "Junior") %>%  ggplot(aes(x = Date, y = CTOR))+geom_line(color = "#0e1033")+
+  geom_point(color = "#f5a800")+ facet_wrap(~Campaign)+theme_bw()+
+  scale_x_date(date_breaks = "2 week")+
+  ggtitle("Click Through Rate")+
+   theme(text = element_text(size=6),
+      axis.text.x = element_text(angle=60, hjust=1))+ 
+  annotate("text", size = 2, x = as.Date("2019-12-09"), y = 13.27, label = "/contact-us \n/maine.edu \nliving-learning-communities \ngender-neutral-housing \ndiversity")+ 
+  annotate("text",  size = 2, x = as.Date("2019-12-23"), y = 9, label = "/virtual-tour \n/maine.edu \n/where-mapping-works-for me \n/campus-tour \n/scholarships")+ 
+  annotate("text",  size = 2, x = as.Date("2020-01-06"), y = 16, label = "/apply-now \n/maine.edu \n/financial-aid")+
+  
+  
+  ylim(c(0, 18))+ geom_hline(yintercept = 12.7, linetype="dashed")+
+  theme(strip.background =element_rect(fill="#f5a800"))+
+  theme(strip.text = element_text(colour = '#0e1033', size = 7))
+
+```
+
+```{r}
+# ggplot(Overall, aes(x = Date, y = Unique.Click.Through.Rate))+geom_bar(stat = "identity")+ facet_wrap(~Campaign, ncol = 1)+theme_bw()+ scale_x_date(c("2019-12-06", "2019-12-19","2020-01-09", "2020-01-23", "2020-02-06", "2020-03-04", "2020-03-11" ))+
+#   theme(axis.text.x = element_text(angle=45, hjust = 1))+ ylim(c(0.8, 4))
+```
+
+# Conclusions
+
+* Overall Junior open rates are much higher than Senior Open Rates
+
+* Open rates trend down as the campaign goes on. 
+
+* "Good to be green" subject lines did not yield high open rates. This could be because they were email #5 out of 7. 
+
+* The most clicked on links are the higher ones within the email. 
+
+* Emails 4 and 5 had very similar subject lines. 
+
 
 
 ```{r}
-write.csv(Overall, "C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Overall.csv", row.names = F)
+# write.csv(Overall, "C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Overall.csv", row.names = F)
 ```
 
 
 
 
 
+
+```{r eval=FALSE, include=FALSE}
+## Email 1 SR
+
+`FA20 Search 1S20 — Email 01` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_742135_Link_08282020 (1).xls", skip = 12, 
+  col_names = c("Link Name", "chick_ate_this", "Unique Clicks", "Pct of UC", "Total Clicks", "Pct of Total Clicks", "	Net CTRs"))
+`FA20 Search 1S20 — Email 01` <- `FA20 Search 1S20 — Email 01` %>% select(`Link Name`, `Unique Clicks`, `Total Clicks`)
+#`FA20 Search 1S20 — Email 01`
+```
+
+
+
+```{r}
+#Email 2 SR
+`FA20 Search 1S20 — Email 02` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_761149_Link_08282020.xls")
+
+`FA20 Search 1S20 — Email 02` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_761149_Link_08282020.xls", skip = 12, 
+  col_names = c("Link Name", "chick_ate_this", "Unique Clicks", "Pct of UC", "Total Clicks", "Pct of Total Clicks", "	Net CTRs"))
+`FA20 Search 1S20 — Email 02` <- `FA20 Search 1S20 — Email 02` %>% select(`Link Name`, `Unique Clicks`, `Total Clicks`)
+#`FA20 Search 1S20 — Email 02`
+``` 
+ 
+
+```{r eval=FALSE, include=FALSE}
+#Email 3 SR
+`FA20 Search 1S20 — Email 03` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_790439_Link_08282020.xls")
+
+`FA20 Search 1S20 — Email 03` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_790439_Link_08282020.xls", skip = 12, 
+  col_names = c("Link Name", "chick_ate_this", "Unique Clicks", "Pct of UC", "Total Clicks", "Pct of Total Clicks", "	Net CTRs"))
+`FA20 Search 1S20 — Email 03` <- `FA20 Search 1S20 — Email 03` %>% select(`Link Name`, `Unique Clicks`, `Total Clicks`)
+#`FA20 Search 1S20 — Email 03`
+``` 
+
+
+
+```{r eval=FALSE, include=FALSE}
+#Email 4 SR
+`FA20 Search 1S20 — Email 04` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_810750_Link_08282020.xls")
+
+`FA20 Search 1S20 — Email 04` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_810750_Link_08282020.xls", skip = 12, 
+  col_names = c("Link Name", "chick_ate_this", "Unique Clicks", "Pct of UC", "Total Clicks", "Pct of Total Clicks", "	Net CTRs"))
+`FA20 Search 1S20 — Email 04` <- `FA20 Search 1S20 — Email 04` %>% select(`Link Name`, `Unique Clicks`, `Total Clicks`)
+#`FA20 Search 1S20 — Email 04`
+``` 
+
+
+
+```{r eval=FALSE, include=FALSE}
+#Email 5 SR
+`FA20 Search 1S20 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832593_Link_08282020.xls")
+#`FA20 Search 1S20 — Email 05`
+
+`FA20 Search 1S20 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832593_Link_08282020.xls", skip = 12, 
+  col_names = c("Link Name", "chick_ate_this", "Unique Clicks", "Pct of UC", "Total Clicks", "Pct of Total Clicks", "	Net CTRs"))
+`FA20 Search 1S20 — Email 05` <- `FA20 Search 1S20 — Email 05` %>% select(`Link Name`, `Unique Clicks`, `Total Clicks`)
+#`FA20 Search 1S20 — Email 05`
+``` 
+
+
+
+```{r eval=FALSE, include=FALSE}
+#Email 6 SR
+`FA20 Search 1S20 — Email 06` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_877524_Link_08282020.xls")
+#`FA20 Search 1S20 — Email 06`
+`FA20 Search 1S20 — Email 06` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_877524_Link_08282020.xls", skip = 12, 
+  col_names = c("Link Name", "chick_ate_this", "Unique Clicks", "Pct of UC", "Total Clicks", "Pct of Total Clicks", "	Net CTRs"))
+`FA20 Search 1S20 — Email 06` <- `FA20 Search 1S20 — Email 06` %>% select(`Link Name`, `Unique Clicks`, `Total Clicks`)
+#`FA20 Search 1S20 — Email 06`
+``` 
+
+
+
+
+```{r eval=FALSE, include=FALSE}
+#Email 7 SR
+`FA20 Search 1S20 — Email 07` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_890526_Link_08282020.csv")
+#`FA20 Search 1S20 — Email 07`
+
+
+`FA20 Search 1S20 — Email 07` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_890526_Link_08282020.csv", skip = 12, 
+  col_names = c("Link Name", "chick_ate_this", "Unique Clicks", "Pct of UC", "Total Clicks", "Pct of Total Clicks", "	Net CTRs"))
+`FA20 Search 1S20 — Email 07` <- `FA20 Search 1S20 — Email 07` %>% select(`Link Name`, `Unique Clicks`, `Total Clicks`)
+#`FA20 Search 1S20 — Email 07`
+```
+
+
+
+
+
+```{r eval=FALSE, include=FALSE}
+#Email 1 JR
+`FA20 Search 1J21 — Email 01` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_742137_Link_09242020.xls")
+#`FA20 Search 1J21 — Email 01`
+`FA20 Search 1J21 — Email 01` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_742137_Link_09242020.xls", skip = 12, 
+  col_names = c("Link Name", "chick_ate_this", "Unique Clicks", "Pct of UC", "Total Clicks", "Pct of Total Clicks", "	Net CTRs"))
+`FA20 Search 1J21 — Email 01` <- `FA20 Search 1J21 — Email 01` %>% select(`Link Name`, `Unique Clicks`, `Total Clicks`)
+`FA20 Search 1J21 — Email 01`
+```
+
+
+
+```{r eval=FALSE, include=FALSE}
+#Email 2 JR
+`FA20 Search 1J21 — Email 02` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_761147_Link_08282020.xls")
+#`FA20 Search 1J21 — Email 02`
+`FA20 Search 1J21 — Email 02` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_761147_Link_08282020.xls", skip = 12, 
+  col_names = c("Link Name", "chick_ate_this", "Unique Clicks", "Pct of UC", "Total Clicks", "Pct of Total Clicks", "	Net CTRs"))
+`FA20 Search 1J21 — Email 02` <- `FA20 Search 1J21 — Email 02` %>% select(`Link Name`, `Unique Clicks`, `Total Clicks`)
+`FA20 Search 1J21 — Email 02`
+```
+ 
+
+```{r eval=FALSE, include=FALSE}
+# Email 3 JR
+# FA20 Search 1J21 — Email 03
+`FA20 Search 1J21 — Email 03` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_790440_Link_08282020.xls")
+#`FA20 Search 1J21 — Email 03`
+`FA20 Search 1J21 — Email 03` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_790440_Link_08282020.xls", skip = 12, 
+  col_names = c("Link Name", "chick_ate_this", "Unique Clicks", "Pct of UC", "Total Clicks", "Pct of Total Clicks", "	Net CTRs"))
+`FA20 Search 1J21 — Email 03` <- `FA20 Search 1J21 — Email 03` %>% select(`Link Name`, `Unique Clicks`, `Total Clicks`)
+`FA20 Search 1J21 — Email 03`
+``` 
+ 
+
+
+```{r eval=FALSE, include=FALSE}
+#Email 4 JR
+`FA20 Search 1J21 — Email 04` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_810751_Link_08282020.xls")
+#`FA20 Search 1J21 — Email 04`
+`FA20 Search 1J21 — Email 04` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_810751_Link_08282020.xls", skip = 12, 
+  col_names = c("Link Name", "chick_ate_this", "Unique Clicks", "Pct of UC", "Total Clicks", "Pct of Total Clicks", "	Net CTRs"))
+`FA20 Search 1J21 — Email 04` <- `FA20 Search 1J21 — Email 04` %>% select(`Link Name`, `Unique Clicks`, `Total Clicks`)
+`FA20 Search 1J21 — Email 04`
+``` 
+
+
+
+
+```{r eval=FALSE, include=FALSE}
+#Email 5 JR
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls")
+#`FA20 Search 1J21 — Email 05`
+`FA20 Search 1J21 — Email 05` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_832590_Link_08282020.xls", skip = 12, 
+  col_names = c("Link Name", "chick_ate_this", "Unique Clicks", "Pct of UC", "Total Clicks", "Pct of Total Clicks", "	Net CTRs"))
+`FA20 Search 1J21 — Email 05` <- `FA20 Search 1J21 — Email 05` %>% select(`Link Name`, `Unique Clicks`, `Total Clicks`)
+`FA20 Search 1J21 — Email 05`
+``` 
+
+
+
+```{r eval=FALSE, include=FALSE}
+#Email 6 JR
+`FA20 Search 1J21 — Email 06` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_877523_Link_08282020.xls")
+#`FA20 Search 1J21 — Email 06`
+`FA20 Search 1J21 — Email 06` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_877523_Link_08282020.xls", skip = 12, 
+  col_names = c("Link Name", "chick_ate_this", "Unique Clicks", "Pct of UC", "Total Clicks", "Pct of Total Clicks", "	Net CTRs"))
+`FA20 Search 1J21 — Email 06` <- `FA20 Search 1J21 — Email 06` %>% select(`Link Name`, `Unique Clicks`, `Total Clicks`)
+`FA20 Search 1J21 — Email 06`
+``` 
+
+
+
+```{r eval=FALSE, include=FALSE}
+#Email 7 JR
+#Email 6 JR
+`FA20 Search 1J21 — Email 06` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_877523_Link_08282020.xls")
+#`FA20 Search 1J21 — Email 06`
+`FA20 Search 1J21 — Email 06` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_877523_Link_08282020.xls", skip = 12, 
+  col_names = c("Link Name", "chick_ate_this", "Unique Clicks", "Pct of UC", "Total Clicks", "Pct of Total Clicks", "	Net CTRs"))
+`FA20 Search 1J21 — Email 06` <- `FA20 Search 1J21 — Email 06` %>% select(`Link Name`, `Unique Clicks`, `Total Clicks`)
+`FA20 Search 1J21 — Email 06`
+``` 
+
+
+
+```{r eval=FALSE, include=FALSE}
+`FA20 Search 1J21 — Email 07` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_890524_Link_08282020.xls")
+#`FA20 Search 1J21 — Email 07`
+`FA20 Search 1J21 — Email 07` <- read_excel("C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/Job_890524_Link_08282020.xls", skip = 12, 
+  col_names = c("Link Name", "chick_ate_this", "Unique Clicks", "Pct of UC", "Total Clicks", "Pct of Total Clicks", "	Net CTRs"))
+`FA20 Search 1J21 — Email 07` <- `FA20 Search 1J21 — Email 07` %>% select(`Link Name`, `Unique Clicks`, `Total Clicks`)
+`FA20 Search 1J21 — Email 07`
+``` 
+
+
+
+
+```{r eval=FALSE, include=FALSE}
+## Edit
+s1 <- `FA20 Search 1S20 — Email 01` %>% mutate(Email = "FA20 Search 1S20 — Email 01", JobID = "742135" )%>%  select(Email,`Unique Clicks`, `Total Clicks`,`Link Name`, JobID)
+s2 <-`FA20 Search 1S20 — Email 02` %>% mutate(Email = "FA20 Search 1S20 — Email 02", JobID = "761149")%>% select(Email,`Unique Clicks`, `Total Clicks`,`Link Name`, JobID)
+s3 <- `FA20 Search 1S20 — Email 03` %>% mutate(Email = "FA20 Search 1S20 — Email 03", JobID = "790439")%>% select(Email,`Unique Clicks`, `Total Clicks`,`Link Name`, JobID)
+s4 <- `FA20 Search 1S20 — Email 04` %>% mutate(Email = "FA20 Search 1S20 — Email 04",JobID = "810750")%>% select(Email,`Unique Clicks`, `Total Clicks`,`Link Name`, JobID)
+s5 <- `FA20 Search 1S20 — Email 05` %>% mutate(Email = "FA20 Search 1S20 — Email 05", JobID = "832593")%>% select(Email,`Unique Clicks`, `Total Clicks`,`Link Name`, JobID)
+s6 <- `FA20 Search 1S20 — Email 06` %>% mutate(Email = "FA20 Search 1S20 — Email 06", JobID = "877524")%>% select(Email,`Unique Clicks`, `Total Clicks`,`Link Name`, JobID)
+s7 <- `FA20 Search 1S20 — Email 07` %>% mutate(Email = "FA20 Search 1S20 — Email 07", JobID = "890526")%>% select(Email,`Unique Clicks`, `Total Clicks`,`Link Name`, JobID)
+
+
+
+```
+
+```{r eval=FALSE, include=FALSE}
+j1 <- `FA20 Search 1J21 — Email 01` %>% mutate(Email = "FA20 Search 1J21 — Email 01", JobID = "742137")%>% select(Email,`Unique Clicks`, `Total Clicks`,`Link Name`, JobID)
+
+j2 <- `FA20 Search 1J21 — Email 02` %>% mutate(Email = "FA20 Search 1J21 — Email 02", JobID = "761147")%>% select(Email,`Unique Clicks`, `Total Clicks`,`Link Name`, JobID)
+j3 <- `FA20 Search 1J21 — Email 03` %>% mutate(Email = "FA20 Search 1J21 — Email 03", JobID = "790440")%>%  select(Email,`Unique Clicks`, `Total Clicks`,`Link Name`, JobID)
+j4 <- `FA20 Search 1J21 — Email 04` %>% mutate(Email = "FA20 Search 1J21 — Email 04", JobID = "810751")%>% select(Email,`Unique Clicks`, `Total Clicks`,`Link Name`, JobID)
+j5 <- `FA20 Search 1J21 — Email 05` %>% mutate(Email = "FA20 Search 1J21 — Email 05", JobID = "832590")%>% select(Email,`Unique Clicks`, `Total Clicks`,`Link Name`, JobID)
+j6 <- `FA20 Search 1J21 — Email 06` %>% mutate(Email = "FA20 Search 1J21 — Email 06", JobID = "877523")%>% select(Email,`Unique Clicks`, `Total Clicks`,`Link Name`, JobID)
+j7 <- `FA20 Search 1J21 — Email 07` %>% mutate(Email = "FA20 Search 1J21 — Email 07", JobID = "890524")%>% select(Email,`Unique Clicks`, `Total Clicks`,`Link Name`, JobID)
+```
+
+
+
+```{r eval=FALSE, include=FALSE}
+## Overall
+kable(Overall %>% select(-Job.ID), caption = "Search Performance by Campaign and Email") %>%
+  kable_paper("striped", full_width = F) %>%
+  pack_rows("Senior Search", 1, 8) %>%
+  pack_rows("Junior Search", 8, 14) 
+
+
+```
+
+```{r eval=FALSE, include=FALSE}
+all <- rbind.data.frame(s1, s2, s3, s4, s5, s6, s7, j1, j2, j3, j4, j5, j6, j7)  
+Overall <- Overall %>%  rename(JobID = Job.ID) %>% mutate(JobID = as.character(JobID))
+kable(all %>% filter(`Link Name` == "Totals"))
+```
+
+```{r eval=FALSE, include=FALSE}
+Overall <- Overall 
+```
+
+```{r eval=FALSE, include=FALSE}
+new <- left_join(all, Overall, by = "JobID")
+```
+
+```{r eval=FALSE, include=FALSE}
+kable(new %>% mutate(CTR = round(`Unique Clicks`/Delivered *100, 2), 
+                     CTOR = round(`Unique Clicks`/Opens *100, 2) ) %>%  
+      filter("Link Name" != "Totals"))
+dim(new)
+names(new)
+
+write.csv(new, "C:/Users/christine.iyer/Box/FY21_Email/FY20_Search _1_Email_Performance/Raw Data/TidiedOverall.csv", row.names = F)
+```
+
+\href{https://www.wrike.com/open.htm?id=555766688}{{\color{blue}{\underline{Wrike Project Details}}}}
+
+\href{https://github.com/edithbird/FY20_EmailPerformance-Search1}{{\color{blue}{\underline{Github Repository}}}}
